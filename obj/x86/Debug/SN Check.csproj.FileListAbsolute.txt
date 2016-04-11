@@ -1,0 +1,33 @@
+E:\GUI Debug Code\GUI_DEBUG\Eng\Transceiver_Workbench_Eng\SN Check\bin\Debug\SN Check.exe
+E:\GUI Debug Code\GUI_DEBUG\Eng\Transceiver_Workbench_Eng\SN Check\bin\Debug\SN Check.pdb
+E:\GUI Debug Code\GUI_DEBUG\Eng\Transceiver_Workbench_Eng\SN Check\bin\Debug\eDriver_IO.dll
+E:\GUI Debug Code\GUI_DEBUG\Eng\Transceiver_Workbench_Eng\SN Check\bin\Debug\eDriver_IO.pdb
+E:\GUI Debug Code\GUI_DEBUG\Eng\Transceiver_Workbench_Eng\SN Check\obj\x86\Debug\ResolveAssemblyReference.cache
+E:\GUI Debug Code\GUI_DEBUG\Eng\Transceiver_Workbench_Eng\SN Check\obj\x86\Debug\SN_Check.Form1.resources
+E:\GUI Debug Code\GUI_DEBUG\Eng\Transceiver_Workbench_Eng\SN Check\obj\x86\Debug\SN_Check.Properties.Resources.resources
+E:\GUI Debug Code\GUI_DEBUG\Eng\Transceiver_Workbench_Eng\SN Check\obj\x86\Debug\GenerateResource.read.1.tlog
+E:\GUI Debug Code\GUI_DEBUG\Eng\Transceiver_Workbench_Eng\SN Check\obj\x86\Debug\GenerateResource.write.1.tlog
+E:\GUI Debug Code\GUI_DEBUG\Eng\Transceiver_Workbench_Eng\SN Check\obj\x86\Debug\SN Check.exe
+E:\GUI Debug Code\GUI_DEBUG\Eng\Transceiver_Workbench_Eng\SN Check\obj\x86\Debug\SN Check.pdb
+E:\SN_CHECK\obj\x86\Debug\SN_Check.Form1.resources
+E:\SN_CHECK\obj\x86\Debug\SN_Check.Properties.Resources.resources
+E:\SN_CHECK\obj\x86\Debug\SN Check.csproj.GenerateResource.Cache
+E:\SN_CHECK\obj\x86\Debug\SN Check.csprojResolveAssemblyReference.cache
+E:\SN_CHECK\bin\Debug\SN Check.exe.config
+E:\SN_CHECK\bin\Debug\SN Check.exe
+E:\SN_CHECK\bin\Debug\SN Check.pdb
+E:\SN_CHECK\obj\x86\Debug\SN Check.exe
+E:\SN_CHECK\obj\x86\Debug\SN Check.pdb
+E:\Tools\SN_CHECK\bin\Debug\SN Check.exe.config
+E:\Tools\SN_CHECK\obj\x86\Debug\SN Check.exe
+E:\Tools\SN_CHECK\obj\x86\Debug\SN Check.pdb
+E:\Tools\SN_CHECK\bin\Debug\SN Check.exe
+E:\Tools\SN_CHECK\bin\Debug\SN Check.pdb
+E:\Tools\SN_CHECK\obj\x86\Debug\SN Check.csprojResolveAssemblyReference.cache
+E:\Tools\SN_CHECK\obj\x86\Debug\SN_Check.Form1.resources
+E:\Tools\SN_CHECK\obj\x86\Debug\SN_Check.Properties.Resources.resources
+E:\Tools\SN_CHECK\obj\x86\Debug\SN Check.csproj.GenerateResource.Cache
+C:\Users\sophia.xie\Desktop\SN_CHECK\bin\Debug\SN Check.exe.config
+C:\Users\sophia.xie\Desktop\SN_CHECK\obj\x86\Debug\SN Check.exe
+C:\Users\sophia.xie\Desktop\SN_CHECK\obj\x86\Debug\SN Check.pdb
+C:\Users\sophia.xie\Desktop\SN_CHECK\bin\Debug\Simple_ReadWrite.exe.config
