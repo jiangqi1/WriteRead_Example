@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace SN_Check
+namespace ReadWrite
 {
     static class Program
     {

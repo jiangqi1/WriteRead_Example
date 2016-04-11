@@ -12,10 +12,11 @@ using System.Xml;
 using System.Windows.Forms;
 using eDriver_IO;
 using System.Threading;
-//using NationalInstruments.VisaNS;
+using System.Reflection;
 
 
-namespace SN_Check
+
+namespace ReadWrite
 {
     public partial class Form1 : Form
     {
@@ -30,6 +31,7 @@ namespace SN_Check
         {
             InitializeComponent();
             Init_Edriver();
+            ReadMode();
         }
       
         private int Init_Edriver()
@@ -72,12 +74,7 @@ namespace SN_Check
                                 }
                                 else
                                 {
-                                    Lb_Connection.Text = "Connected Failed";
-                                    Lb_Connection.ForeColor = Color.Red;
-                                    //if (ErrorMessage(ByteArr_Error).IndexOf("match", StringComparison.OrdinalIgnoreCase) != -1)
-                                    //{
-                                    //    Application.Exit();
-                                    //}                                   
+                                    Lb_Connection.Text = "Connected Failed";                                
                                 }
                             }
                             else
@@ -335,24 +332,29 @@ namespace SN_Check
             int i2c_addr = 0xA0;
             int comm_frame = 0x0;
             int data_addr_0 = 0x0;
-            int data_format_0 = 0x08;
+            int data_format_0 = 0x01;
             int data_length_0 = 0x08;
             int delay_0 = 0;
             byte[] BtArr_Rd_0;
             BtArr_Rd_0 = new byte[data_length_0 * data_format_0];
             byte[] ByteArr_Error_0 = new byte[200];
-            byte[] BtArr_Set = {7,6,5,4,3,2,1,0};
+            byte[] BtArr_Set = { 0x7, 0x6, 0x5, 0x4, 0x3, 0x2, 0x1, 0 };
 
             // test write functon
+            rtb_info.AppendText("\n Write Data:");
+            for (int j = 0; j < BtArr_Set.Length; j++)
+            {
+                rtb_info.AppendText(BtArr_Set[j].ToString() + " ");
+            }
             i = eDriver_IO.Cls_edriver_mem_dll.Edriver_Mem_Write(i2c_addr,
-                                                                comm_frame, 
-                                                                data_addr_0, 
-                                                                data_length_0, 
-                                                                data_format_0, 
-                                                                2 * 8 - 1,
-                                                                2 * 8, 
-                                                                delay_0, 
-                                                                BtArr_Set, 
+                                                                comm_frame,
+                                                                data_addr_0,
+                                                                data_length_0,
+                                                                data_format_0,
+                                                                8 * 8 - 1,
+                                                                8 * 8,
+                                                                delay_0,
+                                                                BtArr_Set,
                                                                 out ByteArr_Error_0,
                                                                 200);
 
@@ -362,15 +364,107 @@ namespace SN_Check
                                                                 data_addr_0,
                                                                 data_length_0,
                                                                 data_format_0,
-                                                                2 * 8 - 1,
+                                                                8* 8 - 1,
                                                                 BtArr_Rd_0.Length * 8,
                                                                 delay_0,
                                                                 out BtArr_Rd_0,
                                                                 BtArr_Rd_0.Length,
                                                                 out ByteArr_Error_0,
                                                                 200);
+            rtb_info.AppendText("\n Read Data:");
+            for(int j=0; j<BtArr_Rd_0.Length;j++)
+            {
+                rtb_info.AppendText(BtArr_Rd_0[j].ToString() + " ");
+            }
             
 
         }
+
+        #region  enable/disable simulation 
+        private void btn_simulation_Click(object sender, EventArgs e)
+        {
+            Button bt = sender as Button;
+            if (this.Text.Contains("( Simulation Mode )"))
+            {
+                this.Text = "Read Write Example";
+                SetMode(false);
+            }
+            else 
+            {
+                this.Text = "Read Write Example ( Simulation Mode )";
+                SetMode(true);
+            }
+
+            Init_Edriver();
+            ReadMode();
+        }
+        private void ReadMode()
+        {
+            string path = Path.GetDirectoryName(Application.ExecutablePath) + "\\edriver_user.ini";
+            if (File.Exists(path))
+            {
+                FileStream fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Read);
+                StreamReader read = new StreamReader(fs);
+                read.BaseStream.Seek(0, SeekOrigin.Begin);
+                while (read.Peek() > -1)
+                {
+                    string readconfig = read.ReadLine().Trim();
+                    if (readconfig.IndexOf("SIMULATION") != -1)
+                    {
+                        string temp = readconfig.Split('#')[0].Split('=')[1].Trim();
+                        if (temp == "ENABLE")
+                        {
+                            btn_simulation.Text = "Simulation (OFF)";
+                        }
+                        else
+                        {
+                            btn_simulation.Text = "Simulation (ON)";
+                        }
+                    }
+                }
+                read.Close();
+                fs.Close();
+            }
+            else
+            {
+                MessageBox.Show(path + "can not be loaded," + "\r\n" +
+                           "please check if it does not exist or is used by other program.", "Warning",
+                           MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+        private void SetMode(bool value)
+        {
+            string path = Path.GetDirectoryName(Application.ExecutablePath) + "\\edriver_user.ini";
+            if (File.Exists(path))
+            {
+                FileStream fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+                StreamReader read = new StreamReader(fs);
+                StreamWriter write = new StreamWriter(fs);
+                string str = read.ReadToEnd();
+                if (value)
+                {
+                    str = str.Replace("SIMULATION= BYPASS", "SIMULATION= ENABLE");
+                    str = str.TrimEnd('\n').TrimEnd('\r');
+
+                }
+                else
+                {
+                    str = str.Replace("SIMULATION= ENABLE", "SIMULATION= BYPASS");
+                    str = str.TrimEnd('\n').TrimEnd('\r');
+                }
+                fs.SetLength(0);
+                write.WriteLine(str);
+                write.Flush();
+                write.Close();
+                fs.Close();
+            }
+            else
+            {
+                MessageBox.Show(path + "can not be loaded," + "\r\n" +
+                           "please check if it does not exist or is used by other program.", "Warning",
+                           MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+        #endregion
     }
 }
