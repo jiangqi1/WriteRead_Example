@@ -346,6 +346,10 @@ namespace ReadWrite
             {
                 rtb_info.AppendText(BtArr_Set[j].ToString() + " ");
             }
+
+            //SetMode(true);  // set the mode, which depend on the .ini file
+
+
             i = eDriver_IO.Cls_edriver_mem_dll.Edriver_Mem_Write(i2c_addr,
                                                                 comm_frame,
                                                                 data_addr_0,
@@ -371,6 +375,8 @@ namespace ReadWrite
                                                                 BtArr_Rd_0.Length,
                                                                 out ByteArr_Error_0,
                                                                 200);
+
+
             rtb_info.AppendText("\n Read Data:");
             for(int j=0; j<BtArr_Rd_0.Length;j++)
             {
