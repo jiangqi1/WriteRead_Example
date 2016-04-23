@@ -326,6 +326,18 @@ namespace ReadWrite
             toolTip1.SetToolTip(tb_dev, "I2C Address");
         }
 
+        private string Change_TentoHex2(Byte bytTempData)
+        {
+            if (bytTempData < 16)
+            {
+                return "0" + bytTempData.ToString("X").Trim();
+            }
+            else
+            {
+                return bytTempData.ToString("X").Trim();
+            }
+        }
+
         private void Test_Bt_Click(object sender, EventArgs e)
         {
             int i;
@@ -338,18 +350,19 @@ namespace ReadWrite
             byte[] BtArr_Rd_0;
             BtArr_Rd_0 = new byte[data_length_0 * data_format_0];
             byte[] ByteArr_Error_0 = new byte[200];
-            byte[] BtArr_Set = { 0x7, 0x6, 0x5, 0x4, 0x3, 0x2, 0x1, 0 };
+            byte[] BtArr_Set = { 0xf, 0xe, 0xd, 0xc, 0xb, 0xa, 0x9, 0x8, 0x7, 0x6, 0x5, 0x4, 0x3, 0x2, 0x1, 0 };
 
-            // test write functon
-            rtb_info.AppendText("\n Write Data:");
+            // ------------------------  start: test write functon ----------------------------------------------//
+            rtb_info.AppendText("\nW):\n");
+            rtb_info.AppendText("Comments\t");
+            rtb_info.AppendText("Write on MSA filed: 0x00 to 0xF\n");
             for (int j = 0; j < BtArr_Set.Length; j++)
             {
-                rtb_info.AppendText(BtArr_Set[j].ToString() + " ");
+                //rtb_info.AppendText("0x" + BtArr_Set[j].ToString() + " ");        // orignal code
+                rtb_info.AppendText("0x" + Change_TentoHex2(BtArr_Set[j]) + " ");   // updated and show hex value in textbox
             }
 
             //SetMode(true);  // set the mode, which depend on the .ini file
-
-
             i = eDriver_IO.Cls_edriver_mem_dll.Edriver_Mem_Write(i2c_addr,
                                                                 comm_frame,
                                                                 data_addr_0,
@@ -361,8 +374,9 @@ namespace ReadWrite
                                                                 BtArr_Set,
                                                                 out ByteArr_Error_0,
                                                                 200);
-
-            // test read functon
+            // ------------------------  end: test write functon ----------------------------------------------//
+            
+            // ------------------------  start: test read functon ----------------------------------------------//
             i = eDriver_IO.Cls_edriver_mem_dll.Edriver_Mem_Read(i2c_addr,
                                                                 comm_frame,
                                                                 data_addr_0,
@@ -377,14 +391,17 @@ namespace ReadWrite
                                                                 200);
 
 
-            rtb_info.AppendText("\n Read Data:");
+            rtb_info.AppendText("\nR):\n");
             for(int j=0; j<BtArr_Rd_0.Length;j++)
             {
-                rtb_info.AppendText(BtArr_Rd_0[j].ToString() + " ");
+                //rtb_info.AppendText(BtArr_Rd_0[j].ToString() + " ");
+                rtb_info.AppendText("0x" + Change_TentoHex2(BtArr_Rd_0[j]) + " ");   // updated and show hex value in textbox
             }
-            
-
+            // ------------------------  end: test read functon ----------------------------------------------//
         }
+
+
+
 
         #region  enable/disable simulation 
         private void btn_simulation_Click(object sender, EventArgs e)
