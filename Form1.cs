@@ -345,17 +345,17 @@ namespace ReadWrite
             int comm_frame = 0x0;
             int data_addr_0 = 0x0;
             int data_format_0 = 0x01;
-            int data_length_0 = 0x08;
+            int data_length_0 = 0x10;
             int delay_0 = 0;
             byte[] BtArr_Rd_0;
             BtArr_Rd_0 = new byte[data_length_0 * data_format_0];
             byte[] ByteArr_Error_0 = new byte[200];
             byte[] BtArr_Set = { 0xf, 0xe, 0xd, 0xc, 0xb, 0xa, 0x9, 0x8, 0x7, 0x6, 0x5, 0x4, 0x3, 0x2, 0x1, 0 };
+            byte[] BtArr_Set_0 = { 0xff, 0xee, 0xdd, 0xcc, 0xbb, 0xaa, 0x99, 0x88, 0x77, 0x66, 0x55, 0x44, 0x33, 0x22, 0x11, 0 };
 
-            // ------------------------  start: test write functon ----------------------------------------------//
+            // ------------------------  start: write and read back MSA field functon ----------------------------------------------//
             rtb_info.AppendText("\nW):\n");
-            rtb_info.AppendText("Comments\t");
-            rtb_info.AppendText("Write on MSA filed: 0x00 to 0xF\n");
+            //rtb_info.AppendText("Write and Read on MSA filed: 0x00 to 0xF\n");
             for (int j = 0; j < BtArr_Set.Length; j++)
             {
                 //rtb_info.AppendText("0x" + BtArr_Set[j].ToString() + " ");        // orignal code
@@ -374,9 +374,7 @@ namespace ReadWrite
                                                                 BtArr_Set,
                                                                 out ByteArr_Error_0,
                                                                 200);
-            // ------------------------  end: test write functon ----------------------------------------------//
-            
-            // ------------------------  start: test read functon ----------------------------------------------//
+
             i = eDriver_IO.Cls_edriver_mem_dll.Edriver_Mem_Read(i2c_addr,
                                                                 comm_frame,
                                                                 data_addr_0,
@@ -397,7 +395,53 @@ namespace ReadWrite
                 //rtb_info.AppendText(BtArr_Rd_0[j].ToString() + " ");
                 rtb_info.AppendText("0x" + Change_TentoHex2(BtArr_Rd_0[j]) + " ");   // updated and show hex value in textbox
             }
-            // ------------------------  end: test read functon ----------------------------------------------//
+            // ------------------------  start: end and read back MSA field functon ----------------------------------------------//
+
+            // ------------------------  start: write and read back HCI field functon ----------------------------------------------//
+            i2c_addr = 0xA0;
+            comm_frame = 0xA0;
+            data_addr_0 = 0x4000;
+            data_format_0 = 0x02;
+            delay_0 = 0;
+            i = eDriver_IO.Cls_edriver_mem_dll.Edriver_Mem_Write(i2c_addr,
+                                                                comm_frame,
+                                                                data_addr_0,
+                                                                data_length_0,
+                                                                data_format_0,
+                                                                16 * 8 - 1,     // word orient 
+                                                                16 * 8,         // word orient
+                                                                delay_0,
+                                                                BtArr_Set_0,
+                                                                out ByteArr_Error_0,
+                                                                200);
+            rtb_info.AppendText("\nW):\n");
+            for (int j = 0; j < BtArr_Set.Length; j++)
+            {
+                //rtb_info.AppendText("0x" + BtArr_Set[j].ToString() + " ");        // orignal code
+                rtb_info.AppendText("0x" + Change_TentoHex2(BtArr_Set_0[j]) + " ");   // updated and show hex value in textbox
+            }
+
+            i = eDriver_IO.Cls_edriver_mem_dll.Edriver_Mem_Read(i2c_addr,
+                                                    comm_frame,
+                                                    data_addr_0,
+                                                    data_length_0,
+                                                    data_format_0,
+                                                    8 * 8 - 1,
+                                                    BtArr_Rd_0.Length * 8,  
+                                                    delay_0,
+                                                    out BtArr_Rd_0,
+                                                    BtArr_Rd_0.Length,
+                                                    out ByteArr_Error_0,
+                                                    200);
+            rtb_info.AppendText("\nR):\n");
+            for (int j = 0; j < BtArr_Rd_0.Length; j++)
+            {
+                //rtb_info.AppendText(BtArr_Rd_0[j].ToString() + " ");
+                rtb_info.AppendText("0x" + Change_TentoHex2(BtArr_Rd_0[j]) + " ");   // updated and show hex value in textbox
+            }
+
+
+            // ------------------------  end: write and read back HCI field functon ----------------------------------------------//
         }
 
 
