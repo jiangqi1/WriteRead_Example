@@ -68,10 +68,10 @@
             this.Bt_St.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Bt_St.BackColor = System.Drawing.Color.White;
             this.Bt_St.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Bt_St.Location = new System.Drawing.Point(895, 434);
-            this.Bt_St.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Bt_St.Location = new System.Drawing.Point(909, 133);
+            this.Bt_St.Margin = new System.Windows.Forms.Padding(5);
             this.Bt_St.Name = "Bt_St";
-            this.Bt_St.Size = new System.Drawing.Size(103, 31);
+            this.Bt_St.Size = new System.Drawing.Size(95, 31);
             this.Bt_St.TabIndex = 15;
             this.Bt_St.Text = "Write";
             this.Bt_St.UseVisualStyleBackColor = false;
@@ -82,7 +82,7 @@
             this.Bt_Connection.BackColor = System.Drawing.Color.White;
             this.Bt_Connection.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Bt_Connection.Location = new System.Drawing.Point(3, 2);
-            this.Bt_Connection.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Bt_Connection.Margin = new System.Windows.Forms.Padding(5);
             this.Bt_Connection.Name = "Bt_Connection";
             this.Bt_Connection.Size = new System.Drawing.Size(172, 31);
             this.Bt_Connection.TabIndex = 19;
@@ -106,8 +106,8 @@
             this.Bt_Clr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Bt_Clr.BackColor = System.Drawing.Color.White;
             this.Bt_Clr.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Bt_Clr.Location = new System.Drawing.Point(685, 434);
-            this.Bt_Clr.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Bt_Clr.Location = new System.Drawing.Point(909, 195);
+            this.Bt_Clr.Margin = new System.Windows.Forms.Padding(5);
             this.Bt_Clr.Name = "Bt_Clr";
             this.Bt_Clr.Size = new System.Drawing.Size(95, 31);
             this.Bt_Clr.TabIndex = 21;
@@ -120,8 +120,8 @@
             this.Bt_Rd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Bt_Rd.BackColor = System.Drawing.Color.White;
             this.Bt_Rd.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Bt_Rd.Location = new System.Drawing.Point(790, 434);
-            this.Bt_Rd.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Bt_Rd.Location = new System.Drawing.Point(909, 72);
+            this.Bt_Rd.Margin = new System.Windows.Forms.Padding(5);
             this.Bt_Rd.Name = "Bt_Rd";
             this.Bt_Rd.Size = new System.Drawing.Size(95, 31);
             this.Bt_Rd.TabIndex = 23;
@@ -154,7 +154,7 @@
             // tb_dev
             // 
             this.tb_dev.Location = new System.Drawing.Point(49, 48);
-            this.tb_dev.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tb_dev.Margin = new System.Windows.Forms.Padding(4);
             this.tb_dev.Name = "tb_dev";
             this.tb_dev.Size = new System.Drawing.Size(112, 26);
             this.tb_dev.TabIndex = 25;
@@ -164,7 +164,7 @@
             // tb_mem
             // 
             this.tb_mem.Location = new System.Drawing.Point(52, 111);
-            this.tb_mem.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tb_mem.Margin = new System.Windows.Forms.Padding(4);
             this.tb_mem.Name = "tb_mem";
             this.tb_mem.Size = new System.Drawing.Size(109, 26);
             this.tb_mem.TabIndex = 25;
@@ -177,9 +177,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.rtb_info.Location = new System.Drawing.Point(8, 42);
-            this.rtb_info.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rtb_info.Margin = new System.Windows.Forms.Padding(4);
             this.rtb_info.Name = "rtb_info";
-            this.rtb_info.Size = new System.Drawing.Size(945, 383);
+            this.rtb_info.Size = new System.Drawing.Size(670, 383);
             this.rtb_info.TabIndex = 26;
             this.rtb_info.Text = "";
             // 
@@ -197,7 +197,7 @@
             // tb_length
             // 
             this.tb_length.Location = new System.Drawing.Point(51, 290);
-            this.tb_length.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tb_length.Margin = new System.Windows.Forms.Padding(4);
             this.tb_length.Name = "tb_length";
             this.tb_length.Size = new System.Drawing.Size(111, 26);
             this.tb_length.TabIndex = 25;
@@ -251,7 +251,7 @@
             // tb_commframe
             // 
             this.tb_commframe.Location = new System.Drawing.Point(52, 171);
-            this.tb_commframe.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tb_commframe.Margin = new System.Windows.Forms.Padding(4);
             this.tb_commframe.Name = "tb_commframe";
             this.tb_commframe.Size = new System.Drawing.Size(109, 26);
             this.tb_commframe.TabIndex = 25;
@@ -283,7 +283,7 @@
             // tb_format
             // 
             this.tb_format.Location = new System.Drawing.Point(52, 233);
-            this.tb_format.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tb_format.Margin = new System.Windows.Forms.Padding(4);
             this.tb_format.Name = "tb_format";
             this.tb_format.Size = new System.Drawing.Size(109, 26);
             this.tb_format.TabIndex = 25;
@@ -324,11 +324,11 @@
             this.groupBox1.Controls.Add(this.tb_mem);
             this.groupBox1.Controls.Add(this.tb_length);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(962, 31);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Location = new System.Drawing.Point(686, 29);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.groupBox1.Size = new System.Drawing.Size(195, 394);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox1.Size = new System.Drawing.Size(183, 394);
             this.groupBox1.TabIndex = 29;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Set Parameters ";
@@ -358,7 +358,7 @@
             // tb_data
             // 
             this.tb_data.Location = new System.Drawing.Point(52, 353);
-            this.tb_data.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tb_data.Margin = new System.Windows.Forms.Padding(4);
             this.tb_data.Name = "tb_data";
             this.tb_data.Size = new System.Drawing.Size(111, 26);
             this.tb_data.TabIndex = 25;
@@ -380,8 +380,8 @@
             this.Test_Bt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Test_Bt.BackColor = System.Drawing.Color.White;
             this.Test_Bt.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Test_Bt.Location = new System.Drawing.Point(195, 434);
-            this.Test_Bt.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Test_Bt.Location = new System.Drawing.Point(118, 434);
+            this.Test_Bt.Margin = new System.Windows.Forms.Padding(5);
             this.Test_Bt.Name = "Test_Bt";
             this.Test_Bt.Size = new System.Drawing.Size(152, 31);
             this.Test_Bt.TabIndex = 31;
@@ -391,10 +391,10 @@
             // 
             // btn_simulation
             // 
-            this.btn_simulation.Location = new System.Drawing.Point(1012, 433);
-            this.btn_simulation.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btn_simulation.Location = new System.Drawing.Point(400, 433);
+            this.btn_simulation.Margin = new System.Windows.Forms.Padding(4);
             this.btn_simulation.Name = "btn_simulation";
-            this.btn_simulation.Size = new System.Drawing.Size(145, 28);
+            this.btn_simulation.Size = new System.Drawing.Size(145, 32);
             this.btn_simulation.TabIndex = 32;
             this.btn_simulation.Text = "Enable Simulation";
             this.btn_simulation.UseVisualStyleBackColor = true;
@@ -405,7 +405,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Honeydew;
-            this.ClientSize = new System.Drawing.Size(1173, 468);
+            this.ClientSize = new System.Drawing.Size(1061, 468);
             this.Controls.Add(this.btn_simulation);
             this.Controls.Add(this.Test_Bt);
             this.Controls.Add(this.groupBox1);
@@ -417,7 +417,7 @@
             this.Controls.Add(this.Bt_St);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Read Write Example";
             this.groupBox1.ResumeLayout(false);
