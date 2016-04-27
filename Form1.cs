@@ -14,8 +14,6 @@ using eDriver_IO;
 using System.Threading;
 using System.Reflection;
 
-
-
 namespace ReadWrite
 {
     public partial class Form1 : Form
@@ -353,6 +351,11 @@ namespace ReadWrite
             byte[] BtArr_Set = { 0xf, 0xe, 0xd, 0xc, 0xb, 0xa, 0x9, 0x8, 0x7, 0x6, 0x5, 0x4, 0x3, 0x2, 0x1, 0 };
             byte[] BtArr_Set_0 = { 0xff, 0xee, 0xdd, 0xcc, 0xbb, 0xaa, 0x99, 0x88, 0x77, 0x66, 0x55, 0x44, 0x33, 0x22, 0x11, 0 };
 
+            byte[] ByteArr_Error = new byte[200];
+            int dev = 0xA0;
+            int comm = 0;
+
+/*
             // ------------------------  start: write and read back MSA field functon ----------------------------------------------//
             rtb_info.AppendText("\nW):\n");
             //rtb_info.AppendText("Write and Read on MSA filed: 0x00 to 0xF\n");
@@ -440,8 +443,94 @@ namespace ReadWrite
                 rtb_info.AppendText("0x" + Change_TentoHex2(BtArr_Rd_0[j]) + " ");   // updated and show hex value in textbox
             }
 
-
             // ------------------------  end: write and read back HCI field functon ----------------------------------------------//
+            //String To Byte[]：
+            //byte[] byteArray = System.Text.Encoding.Default.GetBytes(str);
+            //Byte[] To String：
+            //string str = System.Text.Encoding.Default.GetString(byteArray);
+/*            string tmp = "TXDIS";
+            string datastring = "0";
+            byte[] byte_gpio = new byte[tmp.Length];
+            byte[] data = new byte[1];
+            for (int k = 0; k < byte_gpio.Length; k++)
+            {
+                byte_gpio[k] = Convert.ToByte(tmp[k]);
+            }
+
+//            byte[] gpio_name = System.Text.Encoding.Default.GetBytes("TXDIS");
+            data[0] = Convert.ToByte(datastring[0]);
+            i = eDriver_IO.Cls_edriver_mem_dll.edriver_mem_cfp_gpio_write(byte_gpio,
+                                                                          data,
+                                                                          ByteArr_Error_0);
+*/
+
+            //-- Pratice GPIO control, note it is only effective for configuration with BOA
+/*
+            string tmp = "EVAL,TXDIS";
+            byte[] byte_gpio = new byte[tmp.Length];
+            for (int k = 0; k < byte_gpio.Length; k++)
+            {
+                byte_gpio[k] = Convert.ToByte(tmp[k]);
+            }
+            int value = 0;
+            int m = eDriver_IO.Cls_edriver_msa_dll.Edriver_Msa_Set_Control_Alrm(dev, comm, 1, value, byte_gpio, out ByteArr_Error, ByteArr_Error.Length);
+            value = 1;
+            m = eDriver_IO.Cls_edriver_msa_dll.Edriver_Msa_Set_Control_Alrm(dev, comm, 1, value, byte_gpio, out ByteArr_Error, ByteArr_Error.Length);
+            value = 0;
+            m = eDriver_IO.Cls_edriver_msa_dll.Edriver_Msa_Set_Control_Alrm(dev, comm, 1, value, byte_gpio, out ByteArr_Error, ByteArr_Error.Length);
+*/  
+
+
+            // -- start: reproduce qcdr boot failed --//
+            i2c_addr = 0xA0;
+            comm_frame = 0x0;
+            data_addr_0 = 0x0;
+            data_format_0 = 0x01;
+            data_length_0 = 0x10;
+            delay_0 = 0;
+            int cnt = 0;
+
+            string tmp = "EVAL,TXDIS";
+
+
+            byte[] byte_gpio = new byte[tmp.Length];
+            for (int k = 0; k < byte_gpio.Length; k++)
+            {
+                byte_gpio[k] = Convert.ToByte(tmp[k]);
+            }
+            int value = 0;
+            int m = eDriver_IO.Cls_edriver_msa_dll.Edriver_Msa_Set_Control_Alrm(dev, comm, 1, value, byte_gpio, out ByteArr_Error, ByteArr_Error.Length);
+
+            rtb_info.AppendText("Start Reproducing Cisco RMA\n");            
+            while ((BtArr_Rd_0[6] & 0x01) != 0x01)  // if init flag isn't asserted
+            {
+                i = eDriver_IO.Cls_edriver_msa_dll.Edriver_Msa_Set_Control_Alrm(dev, comm, 1, 0, byte_gpio, out ByteArr_Error, ByteArr_Error.Length);   // Turn off the power
+                System.Threading.Thread.Sleep(200);     // off 200ms
+                i = eDriver_IO.Cls_edriver_msa_dll.Edriver_Msa_Set_Control_Alrm(dev, comm, 1, 1, byte_gpio, out ByteArr_Error, ByteArr_Error.Length);   // Turn on the power
+                System.Threading.Thread.Sleep(00);    // on  2s
+
+                i = eDriver_IO.Cls_edriver_mem_dll.Edriver_Mem_Read(    
+                                                                    i2c_addr,
+                                                                    comm_frame,
+                                                                    data_addr_0,
+                                                                    data_length_0,
+                                                                    data_format_0,
+                                                                    8 * 8 - 1,
+                                                                    BtArr_Rd_0.Length * 8,
+                                                                    delay_0,
+                                                                    out BtArr_Rd_0,
+                                                                    BtArr_Rd_0.Length,
+                                                                    out ByteArr_Error_0,
+                                                                    200
+                                                                    );
+                cnt++;
+
+                rtb_info.AppendText("Power cycle times: "+ cnt+"\n"); 
+            }
+            rtb_info.AppendText("Find issue @ " + cnt.ToString() + "times\n"); 
+ 
+
+
         }
 
 
