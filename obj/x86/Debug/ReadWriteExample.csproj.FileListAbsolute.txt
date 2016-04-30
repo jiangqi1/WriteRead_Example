@@ -31,3 +31,12 @@ D:\workmaterial\study_git\WriteRead_Example\obj\x86\Debug\Simple_ReadWrite.Prope
 D:\workmaterial\study_git\WriteRead_Example\obj\x86\Debug\ReadWriteExample.csproj.GenerateResource.Cache
 D:\workmaterial\study_git\WriteRead_Example\obj\x86\Debug\Simple_ReadWrite.exe
 D:\workmaterial\study_git\WriteRead_Example\obj\x86\Debug\Simple_ReadWrite.pdb
+d:\mygithub\github\WriteRead_Example\bin\Debug\Simple_ReadWrite.exe.config
+d:\mygithub\github\WriteRead_Example\obj\x86\Debug\Simple_ReadWrite.exe
+d:\mygithub\github\WriteRead_Example\obj\x86\Debug\Simple_ReadWrite.pdb
+d:\mygithub\github\WriteRead_Example\bin\Debug\Simple_ReadWrite.exe
+d:\mygithub\github\WriteRead_Example\bin\Debug\Simple_ReadWrite.pdb
+d:\mygithub\github\WriteRead_Example\obj\x86\Debug\ReadWriteExample.csprojResolveAssemblyReference.cache
+d:\mygithub\github\WriteRead_Example\obj\x86\Debug\ReadWrite.Form1.resources
+d:\mygithub\github\WriteRead_Example\obj\x86\Debug\Simple_ReadWrite.Properties.Resources.resources
+d:\mygithub\github\WriteRead_Example\obj\x86\Debug\ReadWriteExample.csproj.GenerateResource.Cache
