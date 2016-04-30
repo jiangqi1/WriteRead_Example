@@ -32,3 +32,6 @@ D:\workmaterial\study_git\WriteRead_Example\obj\x86\Debug\Simple_ReadWrite.Prope
 D:\workmaterial\study_git\WriteRead_Example\obj\x86\Debug\ReadWriteExample.csproj.GenerateResource.Cache
 D:\workmaterial\study_git\WriteRead_Example\obj\x86\Debug\Simple_ReadWrite.exe
 D:\workmaterial\study_git\WriteRead_Example\obj\x86\Debug\Simple_ReadWrite.pdb
+d:\mygithub\github\WriteRead_Example\bin\Debug\Simple_ReadWrite.exe.config
+d:\mygithub\github\WriteRead_Example\obj\x86\Debug\Simple_ReadWrite.exe
+d:\mygithub\github\WriteRead_Example\obj\x86\Debug\Simple_ReadWrite.pdb
