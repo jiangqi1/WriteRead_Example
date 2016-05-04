@@ -345,7 +345,7 @@ namespace ReadWrite
         }
 
 
-        int cnt = 0;
+        long cnt = 0;
         void reproduce_issue(object sender, EventArgs e)
         {
             int i;
