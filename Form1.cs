@@ -204,7 +204,15 @@ namespace ReadWrite
             {
                 rtb_info.AppendText("\n Write Fail!");
             }
+
+
         }
+
+        private void rtb_info_TextChanged(object sender, EventArgs e)
+        {
+            rtb_info.ScrollToCaret();
+        }
+
 
         private void Bt_Rd_Click(object sender, EventArgs e)
         {
@@ -376,35 +384,36 @@ namespace ReadWrite
             int value = 0;
             int m = eDriver_IO.Cls_edriver_msa_dll.Edriver_Msa_Set_Control_Alrm(dev, comm, 1, value, byte_gpio, out ByteArr_Error, ByteArr_Error.Length);
 
-            //while ((BtArr_Rd_0[6] & 0x01) != 0x01)  // if init flag isn't asserted
-            if (true)
+            i = eDriver_IO.Cls_edriver_msa_dll.Edriver_Msa_Set_Control_Alrm(dev, comm, 1, 1, byte_gpio, out ByteArr_Error, ByteArr_Error.Length);   // Turn off the power
+            System.Threading.Thread.Sleep(50);     // off 200ms
+            i = eDriver_IO.Cls_edriver_msa_dll.Edriver_Msa_Set_Control_Alrm(dev, comm, 1, 0, byte_gpio, out ByteArr_Error, ByteArr_Error.Length);   // Turn on the power
+            System.Threading.Thread.Sleep(500);    // on  2s
+
+            i = eDriver_IO.Cls_edriver_mem_dll.Edriver_Mem_Read(
+                                                                i2c_addr,
+                                                                comm_frame,
+                                                                data_addr_0,
+                                                                data_length_0,
+                                                                data_format_0,
+                                                                8 * 8 - 1,
+                                                                BtArr_Rd_0.Length * 8,
+                                                                delay_0,
+                                                                out BtArr_Rd_0,
+                                                                BtArr_Rd_0.Length,
+                                                                out ByteArr_Error_0,
+                                                                200
+                                                                );
+
+
+            if (((BtArr_Rd_0[6] & 0x01) == 0x01)&&(BtArr_Rd_0[6] != 0xFF))
             {
-                i = eDriver_IO.Cls_edriver_msa_dll.Edriver_Msa_Set_Control_Alrm(dev, comm, 1, 0, byte_gpio, out ByteArr_Error, ByteArr_Error.Length);   // Turn off the power
-                System.Threading.Thread.Sleep(10);     // off 200ms
-                i = eDriver_IO.Cls_edriver_msa_dll.Edriver_Msa_Set_Control_Alrm(dev, comm, 1, 1, byte_gpio, out ByteArr_Error, ByteArr_Error.Length);   // Turn on the power
-                System.Threading.Thread.Sleep(10);    // on  2s
-
-                i = eDriver_IO.Cls_edriver_mem_dll.Edriver_Mem_Read(
-                                                                    i2c_addr,
-                                                                    comm_frame,
-                                                                    data_addr_0,
-                                                                    data_length_0,
-                                                                    data_format_0,
-                                                                    8 * 8 - 1,
-                                                                    BtArr_Rd_0.Length * 8,
-                                                                    delay_0,
-                                                                    out BtArr_Rd_0,
-                                                                    BtArr_Rd_0.Length,
-                                                                    out ByteArr_Error_0,
-                                                                    200
-                                                                    );
                 cnt++;
-
                 rtb_info.AppendText("Power cycle times: " + cnt + "\n");
             }
             else
             {
-                rtb_info.AppendText("Find issue @ " + cnt.ToString() + "times\n");
+                rtb_info.AppendText("Reproduced issue @ " + cnt.ToString() + "times\n");
+                timer1.Enabled = false; // If issue is reproduced, then stop timer
             }
 
 
