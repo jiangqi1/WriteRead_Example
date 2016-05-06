@@ -40,3 +40,4 @@ d:\mygithub\github\WriteRead_Example\obj\x86\Debug\ReadWriteExample.csprojResolv
 d:\mygithub\github\WriteRead_Example\obj\x86\Debug\ReadWrite.Form1.resources
 d:\mygithub\github\WriteRead_Example\obj\x86\Debug\Simple_ReadWrite.Properties.Resources.resources
 d:\mygithub\github\WriteRead_Example\obj\x86\Debug\ReadWriteExample.csproj.GenerateResource.Cache
+D:\workmaterial\study_git\WriteRead_Example\obj\x86\Debug\ReadWriteExample.csprojResolveAssemblyReference.cache

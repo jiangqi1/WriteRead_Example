@@ -76,6 +76,7 @@
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.lab_running_status = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvide)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -579,12 +580,24 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.reproduce_issue);
             // 
+            // lab_running_status
+            // 
+            this.lab_running_status.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lab_running_status.Location = new System.Drawing.Point(440, 430);
+            this.lab_running_status.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lab_running_status.Name = "lab_running_status";
+            this.lab_running_status.Size = new System.Drawing.Size(231, 40);
+            this.lab_running_status.TabIndex = 48;
+            this.lab_running_status.Text = "Running Status";
+            this.lab_running_status.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Honeydew;
             this.ClientSize = new System.Drawing.Size(1361, 468);
+            this.Controls.Add(this.lab_running_status);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.textBox6);
             this.Controls.Add(this.label18);
@@ -611,7 +624,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
-            this.Text = "Read Write Example   Rev.00-01-02";
+            this.Text = "Read Write Example   Rev.00-01-03";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -670,6 +683,7 @@
         private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label lab_running_status;
     }
 }
 

@@ -428,6 +428,8 @@ namespace ReadWrite
                 flag = 1;
                 timer1.Enabled = true;
                 rtb_info.AppendText("Start Reproducing Cisco RMA\n");
+                lab_running_status.ForeColor = Color.Green;
+                lab_running_status.Text ="Running!";
                 //        Test_Bt.Click += new EventHandler(reproduce_issue);
             }
             else
@@ -435,6 +437,8 @@ namespace ReadWrite
                 flag = 0;
                 timer1.Enabled = false;
                 rtb_info.AppendText("Stop Reproducing Cisco RMA\n");
+                lab_running_status.ForeColor = Color.Red;
+                lab_running_status.Text = "Stopped!";
                 //        Test_Bt.Click -= new EventHandler(reproduce_issue);
             }
 #endif
