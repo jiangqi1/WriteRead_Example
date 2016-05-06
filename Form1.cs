@@ -287,6 +287,8 @@ namespace ReadWrite
             return true;
         }
 
+
+
         private void Bt_Connection_Click(object sender, EventArgs e)
         {
             Init_Edriver();
