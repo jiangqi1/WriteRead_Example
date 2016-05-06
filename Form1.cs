@@ -445,7 +445,14 @@ namespace ReadWrite
 
         }
 
+<<<<<<< .merge_file_a08376
 #region  enable/disable simulation 
+=======
+
+
+
+        #region  enable/disable simulation 
+>>>>>>> .merge_file_a05104
         private void btn_simulation_Click(object sender, EventArgs e)
         {
             Button bt = sender as Button;
