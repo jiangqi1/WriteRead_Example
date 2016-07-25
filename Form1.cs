@@ -33,7 +33,7 @@ namespace ReadWrite
             Init_Edriver();
             ReadMode();
         }
-      
+
         private int Init_Edriver()
         {
             string message = "";
@@ -70,11 +70,11 @@ namespace ReadWrite
                                 if (i == 1)
                                 {
                                     Lb_Connection.Text = " Connected Success!";
-                                    Lb_Connection.ForeColor = Color.LimeGreen;                                  
+                                    Lb_Connection.ForeColor = Color.LimeGreen;
                                 }
                                 else
                                 {
-                                    Lb_Connection.Text = "Connected Failed";                                
+                                    Lb_Connection.Text = "Connected Failed";
                                 }
                             }
                             else
@@ -106,8 +106,8 @@ namespace ReadWrite
                 Lb_Connection.Text = "Connected Failed";
                 Lb_Connection.ForeColor = Color.Red;
             }
-            
-        
+
+
             return i;
         }
         private void ErrorcodeControl(string message, int i, byte[] error)
@@ -159,14 +159,14 @@ namespace ReadWrite
                 errorProvide.SetError(tb_data, " Data length should be data_format* data_length!!");
                 return;
             }
-            if(check_input())
+            if (check_input())
                 Write_Data();
-        }       
+        }
 
         public void Write_Data()
-        {           
-            int i2c_addr = Convert.ToInt32(tb_dev.Text.Trim(),16);
-            int comm_frame = Convert.ToInt32(tb_commframe.Text.Trim(),16);
+        {
+            int i2c_addr = Convert.ToInt32(tb_dev.Text.Trim(), 16);
+            int comm_frame = Convert.ToInt32(tb_commframe.Text.Trim(), 16);
             int data_addr = Convert.ToInt32(tb_mem.Text.Trim(), 16);
             int data_format = Convert.ToInt32(tb_format.Text.Trim());
             int data_length = Convert.ToInt32(tb_length.Text.Trim());
@@ -210,14 +210,14 @@ namespace ReadWrite
 
         private void Bt_Rd_Click(object sender, EventArgs e)
         {
-            if(check_input())
+            if (check_input())
                 Rd_Data();
 
         }
         public void Rd_Data()
         {
-            int i2c_addr = Convert.ToInt32(tb_dev.Text.Trim(),16);
-            int comm_frame =   Convert.ToInt32(tb_commframe.Text.Trim(),16);
+            int i2c_addr = Convert.ToInt32(tb_dev.Text.Trim(), 16);
+            int comm_frame = Convert.ToInt32(tb_commframe.Text.Trim(), 16);
             int data_addr = Convert.ToInt32(tb_mem.Text.Trim(), 16);
             int data_format = Convert.ToInt32(tb_format.Text.Trim());
             int data_length = Convert.ToInt32(tb_length.Text.Trim());
@@ -232,21 +232,21 @@ namespace ReadWrite
                 ErrorcodeControl("Load Password:", i, ByteArr_Error);
             }
             if (i == 1)
-            {                 
+            {
                 i = eDriver_IO.Cls_edriver_mem_dll.Edriver_Mem_Read(i2c_addr,
                     comm_frame, data_addr, data_length, data_format, BtArr_Rd.Length * 8 - 1,
                     BtArr_Rd.Length * 8, delay, out BtArr_Rd, BtArr_Rd.Length,
                     out ByteArr_Error, ByteArr_Error.Length);
-                ErrorcodeControl("Read Info", i, ByteArr_Error);                    
+                ErrorcodeControl("Read Info", i, ByteArr_Error);
                 if (i == 1)
                 {
                     string temp = "";
                     for (int j = 0; j < BtArr_Rd.Length; j++)
                     {
                         temp += BtArr_Rd[j].ToString("X2");
-                    }                     
+                    }
                     rtb_info.AppendText("\n" + temp);
-                        
+
                 }
                 else
                 {
@@ -268,7 +268,7 @@ namespace ReadWrite
                 errorProvide.SetError(tb_mem, " Data should not be empty!");
                 return false;
             }
-            if (tb_commframe.Text.Trim() == "" || ( Convert.ToInt32(tb_commframe.Text.Trim(),16) != 0 && Convert.ToInt32(tb_commframe.Text.Trim(),16) != 160))
+            if (tb_commframe.Text.Trim() == "" || (Convert.ToInt32(tb_commframe.Text.Trim(), 16) != 0 && Convert.ToInt32(tb_commframe.Text.Trim(), 16) != 160))
             {
                 errorProvide.SetError(tb_commframe, " Commframe should be 0 for access MSA or A0 for access Internal table");
                 return false;
@@ -355,6 +355,117 @@ namespace ReadWrite
             byte[] BtArr_Set = { 0xf, 0xe, 0xd, 0xc, 0xb, 0xa, 0x9, 0x8, 0x7, 0x6, 0x5, 0x4, 0x3, 0x2, 0x1, 0 };
             byte[] BtArr_Set_0 = { 0xff, 0xee, 0xdd, 0xcc, 0xbb, 0xaa, 0x99, 0x88, 0x77, 0x66, 0x55, 0x44, 0x33, 0x22, 0x11, 0 };
 
+            // Trouble shooting Rx LOL issue
+            int data_addr_Tx_Dis = 86;   // Tx disable
+            int data_addr_TRx_LOL = 5;   // Rx LOL: 3:0, Tx LOL: 7:4 
+            int data_length_1 = 0x1;
+            byte[] BtArr_Rd_Tx_Dis;
+            BtArr_Rd_Tx_Dis = new byte[data_length_1 * data_format_0];
+            byte[] BtArr_Rd_TRx_LOL;
+            BtArr_Rd_TRx_LOL = new byte[data_length_1 * data_format_0];
+            byte[] BtArr_Set_Tx_Dis = { 0x0F };  // 4ch disable
+            byte[] BtArr_Set_Page_Sel = { 0x03 };
+            byte[] BtArr_Set_page_TRx_CDR_ByPass = { 0xFF };    // 0, bypass, 1, enable: Tx-7:4 Rx-3:0
+            // enable CDR: 1, pagesel 0x03; 2, set cdr enable
+            rtb_info.AppendText("\n");
+            rtb_info.AppendText("CDR Enable");
+            i = eDriver_IO.Cls_edriver_mem_dll.Edriver_Mem_Write(0xa0,
+                                                                0,
+                                                                0x7F,       // page sel
+                                                                1,
+                                                                1,
+                                                                8 - 1,      //this parameter seems
+                                                                8,
+                                                                0,
+                                                                BtArr_Set_Page_Sel,
+                                                                out ByteArr_Error_0,
+                                                                200);
+
+            i = eDriver_IO.Cls_edriver_mem_dll.Edriver_Mem_Write(0xa0,
+                                                                0,
+                                                                0x62,       // cdr enable
+                                                                1,
+                                                                1,
+                                                                8 - 1,    //this parameter seems
+                                                                8,
+                                                                0,
+                                                                BtArr_Set_page_TRx_CDR_ByPass,
+                                                                out ByteArr_Error_0,
+                                                                200);
+
+            // Tx disable ch
+                        i = eDriver_IO.Cls_edriver_mem_dll.Edriver_Mem_Write(i2c_addr,
+                                                                            comm_frame,
+                                                                            data_addr_Tx_Dis,
+                                                                            data_length_1,
+                                                                            data_format_0,
+                                                                            8 - 1,    //this parameter seems
+                                                                            8 ,
+                                                                            delay_0,
+                                                                            BtArr_Set_Tx_Dis,
+                                                                            out ByteArr_Error_0,
+                                                                            200);
+
+                        i = eDriver_IO.Cls_edriver_mem_dll.Edriver_Mem_Read(i2c_addr,
+                                                                comm_frame,
+                                                                data_addr_Tx_Dis,
+                                                                data_length_1,
+                                                                data_format_0,
+                                                                8  - 1,
+                                                                BtArr_Rd_Tx_Dis.Length * 8,
+                                                                delay_0,
+                                                                out BtArr_Rd_Tx_Dis,
+                                                                BtArr_Rd_Tx_Dis.Length,
+                                                                out ByteArr_Error_0,
+                                                                200);
+
+
+                        rtb_info.AppendText("\n");
+                        rtb_info.AppendText("Tx Disable");
+                        rtb_info.AppendText("\nR):\n");
+                        for (int j = 0; j < BtArr_Rd_Tx_Dis.Length; j++)
+                        {
+                            //rtb_info.AppendText(BtArr_Rd_0[j].ToString() + " ");
+                            rtb_info.AppendText("0x" + Change_TentoHex2(BtArr_Rd_Tx_Dis[j]) + " ");   // updated and show hex value in textbox
+                        }
+
+                        Thread.Sleep(3000); // delay 3000ms
+            // Read back Rx LOL state
+                        i = eDriver_IO.Cls_edriver_mem_dll.Edriver_Mem_Read(i2c_addr,
+                                                    comm_frame,
+                                                    data_addr_TRx_LOL,
+                                                    data_length_1,
+                                                    data_format_0,
+                                                    8 - 1,
+                                                    BtArr_Rd_TRx_LOL.Length * 8,
+                                                    delay_0,
+                                                    out BtArr_Rd_TRx_LOL,
+                                                    BtArr_Rd_TRx_LOL.Length,
+                                                    out ByteArr_Error_0,
+                                                    200);
+
+                        rtb_info.AppendText("\n");
+                        rtb_info.AppendText("Rx LOL 3:0");
+                        rtb_info.AppendText("\nR):\n");
+                        for (int j = 0; j < BtArr_Rd_TRx_LOL.Length; j++)
+                        {
+                            //rtb_info.AppendText(BtArr_Rd_0[j].ToString() + " ");
+                            rtb_info.AppendText("0x" + Change_TentoHex2(BtArr_Rd_TRx_LOL[j]) + " ");   // updated and show hex value in textbox
+                        }
+/*
+                        BtArr_Set_Tx_Dis[0] = 0;  // 4ch enable
+                        i = eDriver_IO.Cls_edriver_mem_dll.Edriver_Mem_Write(i2c_addr,
+                                                                            comm_frame,
+                                                                            data_addr_Tx_Dis,
+                                                                            data_length_1,
+                                                                            data_format_0,
+                                                                            8 - 1,    //this parameter seems
+                                                                            8 ,
+                                                                            delay_0,
+                                                                            BtArr_Set_Tx_Dis,
+                                                                            out ByteArr_Error_0,
+                                                                            200);
+/*
             // ------------------------  start: write and read back MSA field functon ----------------------------------------------//
             rtb_info.AppendText("\nW):\n");
             //rtb_info.AppendText("Write and Read on MSA filed: 0x00 to 0xF\n");
@@ -444,6 +555,8 @@ namespace ReadWrite
 
 
             // ------------------------  end: write and read back HCI field functon ----------------------------------------------//
+
+*/
         }
 
 
@@ -451,7 +564,7 @@ namespace ReadWrite
 
 
 
-        #region  enable/disable simulation 
+        #region  enable/disable simulation
         private void btn_simulation_Click(object sender, EventArgs e)
         {
             Button bt = sender as Button;
@@ -460,7 +573,7 @@ namespace ReadWrite
                 this.Text = "Read Write Example";
                 SetMode(false);
             }
-            else 
+            else
             {
                 this.Text = "Read Write Example ( Simulation Mode )";
                 SetMode(true);
