@@ -34,4 +34,3 @@ D:\workmaterial\study_git\WriteRead_Example\obj\x86\Debug\Simple_ReadWrite.pdb
 d:\mygithub\github\WriteRead_Example\bin\Debug\Simple_ReadWrite.exe.config
 d:\mygithub\github\WriteRead_Example\obj\x86\Debug\Simple_ReadWrite.exe
 d:\mygithub\github\WriteRead_Example\obj\x86\Debug\Simple_ReadWrite.pdb
-D:\workmaterial\study_git\WriteRead_Example\obj\x86\Debug\ReadWriteExample.csprojResolveAssemblyReference.cache

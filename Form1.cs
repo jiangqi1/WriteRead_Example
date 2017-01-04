@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using eDriver_IO;
 using System.Threading;
 using System.Reflection;
+using ReadWriteCsv;
 
 
 
@@ -29,9 +30,44 @@ namespace ReadWrite
 
         public Form1()
         {
+            WriteTest();
+            ReadTest();
             InitializeComponent();
             Init_Edriver();
             ReadMode();
+        }
+
+        private void WriteTest()
+        {
+            // Write sample data to CSV file
+            using (CsvFileWriter writer = new CsvFileWriter("WriteTest.csv"))
+            {
+                for (int i = 0; i < 100; i++)
+                {
+                    CsvRow row = new CsvRow();
+                    for (int j = 0; j < 5; j++)
+                        row.Add(String.Format("Column{0}", j));
+                    writer.WriteRow(row);
+                }
+            }
+        }
+
+        private void ReadTest()
+        {
+            // Read sample data from CSV file
+            using (CsvFileReader reader = new CsvFileReader("ReadTest.csv"))
+            {
+                CsvRow row = new CsvRow();
+                while (reader.ReadRow(row))
+                {
+                    foreach (string s in row)
+                    {
+                        Console.Write(s);
+                        Console.Write(" ");
+                    }
+                    Console.WriteLine();
+                }
+            }
         }
 
         private int Init_Edriver()
@@ -355,6 +391,36 @@ namespace ReadWrite
             byte[] BtArr_Set = { 0xf, 0xe, 0xd, 0xc, 0xb, 0xa, 0x9, 0x8, 0x7, 0x6, 0x5, 0x4, 0x3, 0x2, 0x1, 0 };
             byte[] BtArr_Set_0 = { 0xff, 0xee, 0xdd, 0xcc, 0xbb, 0xaa, 0x99, 0x88, 0x77, 0x66, 0x55, 0x44, 0x33, 0x22, 0x11, 0 };
 
+            // Trouble shooting 
+            int data_addr_Tx_Dis = 86;   // Tx disable
+            int data_addr_TRx_LOL = 5;   // Rx LOL: 3:0, Tx LOL: 7:4 
+            int data_length_1 = 0x1;
+            byte[] BtArr_Rd_Tx_Dis;
+            BtArr_Rd_Tx_Dis = new byte[data_length_1 * data_format_0];
+            byte[] BtArr_Rd_TRx_LOL;
+            BtArr_Rd_TRx_LOL = new byte[data_length_1 * data_format_0];
+            byte[] BtArr_Set_Tx_Dis_05 = { 0x05 };  // 4ch disable
+            byte[] BtArr_Set_Tx_Dis_0A = { 0x0A };  // 4ch disable
+
+            byte[] BtArr_Set_Page_Sel = { 0x00 };
+            byte[] BtArr_Set_page_TRx_CDR_ByPass = { 0xFF };    // 0, bypass, 1, enable: Tx-7:4 Rx-3:0
+            // enable CDR: 1, pagesel 0x03; 2, set cdr enable
+            rtb_info.AppendText("\n");
+            rtb_info.AppendText("CDR Enable");
+            i = eDriver_IO.Cls_edriver_mem_dll.Edriver_Mem_Write(0xa0,
+                                                                0,
+                                                                0x7F,       // page sel
+                                                                1,
+                                                                1,
+                                                                8 - 1,      //this parameter seems
+                                                                8,
+                                                                0,
+                                                                BtArr_Set_Tx_Dis_05,
+                                                                out ByteArr_Error_0,
+                                                                200);
+
+
+/*
             // Trouble shooting Rx LOL issue
             int data_addr_Tx_Dis = 86;   // Tx disable
             int data_addr_TRx_LOL = 5;   // Rx LOL: 3:0, Tx LOL: 7:4 
@@ -452,6 +518,8 @@ namespace ReadWrite
                             //rtb_info.AppendText(BtArr_Rd_0[j].ToString() + " ");
                             rtb_info.AppendText("0x" + Change_TentoHex2(BtArr_Rd_TRx_LOL[j]) + " ");   // updated and show hex value in textbox
                         }
+/*
+
 /*
                         BtArr_Set_Tx_Dis[0] = 0;  // 4ch enable
                         i = eDriver_IO.Cls_edriver_mem_dll.Edriver_Mem_Write(i2c_addr,
